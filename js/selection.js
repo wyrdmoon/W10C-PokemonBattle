@@ -1,65 +1,106 @@
-var userSelection = Cookies.get('selection');
-var Veritech = "Veritech(selection-1)";
-var Destroid = "Destroid(selection-2)";
-var Cyclone = "Cyclone(selection-3)"; 
+
+var mecha_images={
+    mecha_1: "https://external-preview.redd.it/yWpSKAumCrD6OBcs0geVMQQb2I-5H98Vi1ZegyokHUY.jpg?auto=webp&s=3d19368e9c2968e1740e6c3c195a896209a283dc",
+    mecha_2: "https://images4.sw-cdn.net/product/picture/710x528_28048643_15130128_1561483761.jpg",
+    mecha_3: "https://www.kent.net/robotech/mecha/rdf/vf-1j-battloid.gif"
+}
 
 
 
 
-if(userSelection == 'Veritech') {
-   document.getElementById("selection-container").innerHTML = "<p> Veritech </p>"+
-   '<img src="http://3.bp.blogspot.com/-13bXDnDVvwM/VMQCtyoVmOI/AAAAAAAAM8g/TGKaZlftUIA/s1600/vf-1s-gerwalk.gif" alt="Veritech">'
-} else if(userSelection == 'Destroid') {
-document.getElementById("selection-container").innerHTML = "<p> Destroid </p>"+
-'<img src="https://vignette.wikia.nocookie.net/macross/images/b/bf/Destroid-tomahawk.gif/revision/latest?cb=20181001001929" alt="Destroid">'
-} else if(userSelection == 'Cyclone') {
-    document.getElementById("selection-container").innerHTML = "<p> Cyclone </p>"+
-    '<img src="http://www.kent.net/robotech/gallery/images/firing.gif" alt="Cyclone">'
-} else {
-    document.getElementById("selection-container").innerHTML = "<p> Invalid Choice </p>"
+
+
+
+var user = {
+    mecha_name : Cookies.get("user_mecha"),
+    current_health : Cookies.get("user_currentHealth"),
+    maximum:Cookies.get("user_maximum")
+}
+
+var comp = {
+    mecha_name : Cookies.get("com_mecha"),
+    current_health : Cookies.get("computer_currentHealth"),
+    maximum:Cookies.get("comp_maximum")
+}
+checkWinner()
+var user_html = document.getElementById("user");
+
+var user_image = document.createElement("img");
+user_image.setAttribute("src",mecha_images[user.mecha_name]);
+
+user_html.appendChild(user_image);
+
+var comp_html = document.getElementById("computer");
+
+var comp_image = document.createElement("img");
+comp_image.setAttribute("src",mecha_images[comp.mecha_name]);
+
+comp_html.appendChild(comp_image);
+
+var user_score = document.createElement("h3");
+var comp_score = document.createElement("h3");
+
+user_score.innerHTML= user.current_health + "/" + user.maximum;
+user_score.setAttribute("id","user_score");
+
+user_html.appendChild(user_score);
+
+comp_score.innerHTML= comp.current_health + "/" + comp.maximum;
+comp_score.setAttribute("id","comp_score");
+
+comp_html.appendChild(comp_score);
+
+
+function attack1(lower_limit,upperlimit){
+
+    console.log(lower_limit);
+    var randomdg =lower_limit + Math.round(Math.random()*(upperlimit-lower_limit));
+    comp.current_health -= randomdg;
+    updateCookies()
+    checkWinner();
+    computer_attack();
+    updateCookies()
+    checkWinner();
+    updateHtml();
+
+    
+}
+
+
+
+
+
+function updateCookies(){
+    Cookies.set("user_currentHealth",user.current_health);
+    Cookies.set("computer_currentHealth",comp.current_health);
+
+}
+function updateHtml(){
+
+    var user_score = document.getElementById("user_score");
+    user_score.innerHTML= user.current_health + "/" + user.maximum;
+    var comp_score = document.getElementById("comp_score");
+    comp_score.innerHTML= comp.current_health + "/" + comp.maximum;
+
+   
+}
+
+function computer_attack(){
+    var randomdg = Math.round(Math.random()*35);
+    user.current_health -= randomdg;
+
+}
+function checkWinner(){
+    var body_html = document.getElementsByTagName("body");
+    if(user.current_health <= 0){
+        body_html[0].innerHTML = " YOU LOST ";
+
+    }
+    else  if(comp.current_health <= 0){
+        body_html[0].innerHTML = " YOU WIN, CONGRATS ";
+
+    }
 
 }
 
-var userSelection = document.getElementById("userHP");
-userSelection.innerHTML = 50;
-
-var computer = document.getElementById("computer");
-computer.innerHTML = 50; 
-
-function attackOne() {
-    computer.innerHTML = computer.innerHTML -10;
-    userSelection.innerHTML = userSelection.innerHTML -5;
-
-    if(computer.innerHTML = computer.innerHTML <=0) {
-        document.querySelector('body').innerHTML = "<p>VICTORY</p>"
-    }
-    
-    }
-    
-    function attackTwo() {
-        computer.innerHTML = computer.innerHTML -5;
-        userSelection.innerHTML = userSelection.innerHTML -10;
-    
-        if(computer.innerHTML = computer.innerHTML <=0) {
-            document.querySelector('body').innerHTML = "<p>VICTORY</p>"
-        }
-
-    }
-    function attackThree() {
-        computer.innerHTML = computer.innerHTML -5;
-        userSelection.innerHTML = userSelection.innerHTML -3;
-    
-        if(computer.innerHTML = computer.innerHTML <=0) {
-            document.querySelector('body').innerHTML = "<p>VICTORY</p>"
-        }
-    }
-
-    function attackFour() { 
-        computer.innerHTML = computer.innerHTML -3;
-        userSelection.innerHTML = userSelection.innerHTML -2;
-    
-        if(computer.innerHTML = computer.innerHTML <=0) {
-            document.querySelector('body').innerHTML = "<p>VICTORY</p>"
-        }
-    }
 

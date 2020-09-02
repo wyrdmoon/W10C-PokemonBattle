@@ -2,25 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <h1 id="title">ZENTRAEDI BATTLEPOD</h1>
-    <div id="selection-container"></div> <p id="userHP">50</p>
-    <div id="selection-enemy" class="selection" onclick="select('zentraedibattlepod')">
-    <img src="https://rpggamer.org/uploaded_images/zentraedibattlepod.jpeg" alt="Zentraedi Battlepod">
-    <div id="battle-button">
+    <h1> welcome to Robotech Battle </h1>
+    <div id="Mecha">
+       
+        <div id="user">
+            <button onclick="attack1(0,10)"> attack 1 </button>
+            <button onclick="attack1(10,20)" > attack 2 </button>
+            <button onclick="attack1(20,30)"> attack 3 </button>
+            <button onclick="attack1(30,35)"> attack 4 </button>
+        </div>
+        <div id="computer">
+            <h2 id="comp_mecha"> Zentraedi BattlePod </h2>
+            <img src="https://rpggamer.org/uploaded_images/zentraedibattlepod.jpeg" alt="ZentraediBattlePod">
+            <div id="battle-button">
+            <h4 id="computer_currentHealth"> </h4>
+            <h4 id="computer_attackPoints"> </h4>
+            </div>
+        </div>
+         <h4 id="message"></h4>
+         <h4 id="WINNER"></h4>
+
+
     </div>
-    </div>
-  <p id="computer">50</p>
-  
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-<script src="js/selection.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="js/selection.js"></script>
 </body>
 </html>
